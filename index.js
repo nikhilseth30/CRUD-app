@@ -32,11 +32,25 @@ app.get("/showuser/:email",(req,res)=>{
     })
 })
 
+// delete user
 app.delete("/deleteUser/:email",(req,res)=>{
     let emailId = req.params.email
     let sql = `DELETE FROM employee where email = '${emailId}'`
     db.query(sql,(err,result)=>{
         if(err) throw err;
+        else res.json(result)
+    })
+})
+
+// update user
+app.put("/updateUser/:email",(req,res)=>{
+    let email = req.params.email
+    const name = req.body.name
+    const phone = req.body.phone
+    const city = req.body.city
+    let sql = `UPDATE employee SET name = '${name}',phone = '${phone}',city = '${city}'`
+    db.query(sql,(err,result)=>{
+        if (err) throw err
         else res.json(result)
     })
 })
